@@ -1,0 +1,45 @@
+<!DOCTYPE>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="static/style.css">
+        <title>German law search {% if  query %}  - {{query}} {% endif %} </title>
+    </head>
+    <body>
+        <header>
+            <nav>
+            </nav>
+        </header>
+        <div id ="header">
+            <a href="/">
+            <img src="static/search.png">
+            </a>
+        </div>
+        <div id="search">
+            <form action="/query" method="post">
+                    <input type="text" {% if  query %} value="{{query}}" {% endif %} name="query"></input>
+                    <input type="submit" value="Search"></input>
+<!--
+                    <div id="form-buttons">
+                        Language: 
+                        {% if language == "en" %}
+                        <input type="radio" id="de" name="langauge" value="de" >
+                        <label for="de">DE</label>
+                        <input type="radio" id="en" name="langauge" value="en"  checked="checked">
+                        <label for="en">EN</label>
+                        {% else %}
+                        <input type="radio" id="de" name="langauge" value="de"  checked="checked" >
+                        <label for="de">DE</label>
+                        <input type="radio" id="en" name="langauge" value="en">
+                        <label for="en">EN</label>
+                        {% endif %}
+                  </div>
+-->
+                  </form>
+          </div>
+          <div id="main">
+              {% block body %}{% endblock %}
+          </div>
+    </body>
+</html>

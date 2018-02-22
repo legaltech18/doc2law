@@ -1,0 +1,18 @@
+{% extends "template.html" %}
+{% block body %}
+{% if  response['results']  %}
+<h3>{{ response['query'] }}</h3>
+{% for sample, law_title, para_n, score  in response['results'] %}
+<div class="result-box">
+            <b>{{ law_title }}{% if para_n %}§{{ para_n }}{% endif %}</b>
+            <p>{{ sample }}</p>
+            {{ score }}
+        </li>
+        </ul>
+</div>
+{% endfor %}
+{% else %}
+    <p>No results found.</p>
+{% endif %}
+</div>
+{% endblock %}
