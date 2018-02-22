@@ -1,0 +1,3 @@
+
+class OCRError(ValueError):
+    pass
