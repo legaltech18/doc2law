@@ -43,20 +43,25 @@
         </div>
     </div>
 
-    {% for sample, law_title, para_n, score in response['results'] %}
+    {% for sample, law_title, para_n, score, full_text in response['results'] %}
     <div class="row results-item">
         <div class="col-xs-12 col-md-6">
             <div class="card">
                 <div class="card--body">
                     <!-- Use <mark></mark> for highlights -->
                     <!-- Score: {{ score }} -->
-                    {{ sample }}
+                    <div class="law-text-sample">{{ sample }}</div>
+                    <div id="{{ law_title+para_n }}"class="law-text-full hidden">{{ full_text| safe }}</div>
+                    
                 </div>
                 <div class="card--footer">
                     <div class="row">
                         <div class="col-xs-6">{{ law_title }} {% if para_n %}§{{ para_n }}{% endif %}</div>
                         <div class="col-xs-6 end-xs">
-                            <a href="#">View full text</a>
+                            <input type="button" onclick="unhide(this, '{{ law_title+para_n }}') " value="unhide">
+<!--
+                            <a  onclick="unhide(this, '{{ law_title+para_n }}')" href="#">View full text</a>
+-->
                         </div>
                     </div>
                 </div>

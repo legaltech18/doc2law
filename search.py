@@ -15,18 +15,18 @@ INDEX_DIR = 'db/index'
 DATABASE_URL = "db/corpus.db"
 TABLE_NAME = "law_text"
 
-conn = sqlite3.connect(DATABASE_URL)
-c = conn.cursor()
 
 def get_full_law_para(law_title, para_num, matched):
+    conn = sqlite3.connect(DATABASE_URL)
+    c = conn.cursor()
     query = f"SELECT law_text from {TABLE_NAME} where law_name='{law_title}' and section='{para_num}'"
     all_text = ""
     for row in c.execute(query):
         text = row[0]
         if matched != text: 
-            all_text += "\n"+text
+            all_text += "<br>"+text
         else:
-            all_text += "\n <mark>"+text+"</mark>"
+            all_text += "<br> <mark>"+text+"</mark>"
     return all_text
     
 def search(query_input):
@@ -41,10 +41,11 @@ def search(query_input):
     # print(expanded_terms)
     response = {}
     with ix.searcher() as searcher:
-        query = QueryParser("matched", ix.schema).parse(query_input)
+        query = QueryParser("content", ix.schema).parse(query_input)
         response['query'] = str(query)
         results = searcher.search(query)
         results_list = []
+        print(results)
         if results:
             for r in results:
                 matched, law_title, para_n = r.values()
