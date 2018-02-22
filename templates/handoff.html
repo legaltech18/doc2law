@@ -1,0 +1,60 @@
+{% extends "template.html" %} {% block head %}
+<link rel="stylesheet" href="/static/vendor/leaflet/leaflet.css" /> {% endblock %} {% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-xs-6 toolbar">
+            <a href="/">
+                <img class="logo logo--small loading" src="/static/img/logo.svg" />
+            </a>
+        </div>
+        <div class="col-xs-6 end-xs toolbar"></div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8" id="map"></div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card--body">
+                    <strong>Dr. Maria Mustermann</strong>
+                    <p>
+                        Musterstraße 12
+                        <br> 121212 Berlin
+                    </p>
+                </div>
+                <div class="card--footer">
+                    <button class="btn btn--default btn--small" onclick="alert('Sending case…')">Send case</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card--body">
+                    <strong>Dr. Maria Mustermann</strong>
+                    <p>
+                        Musterstraße 12
+                        <br> 121212 Berlin
+                    </p>
+                </div>
+                <div class="card--footer">
+                    <button class="btn btn--default btn--small" onclick="alert('Sending case…')">Send case</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<script src="/static/vendor/leaflet/leaflet.js"></script>
+<script>
+    function renderMarkers(map) {
+        // FIXME: Example marker, add more.
+        L.marker([52.51381369804256, 13.42460632324219])
+            .addTo(map)
+            .bindPopup("Dr. Maria Mustermann")
+
+        // FIXME: Example marker, add more.
+        L.marker([52.51321369804256, 13.62280632324219])
+            .addTo(map)
+            .bindPopup("Dr. Max Mustermann")
+            .openPopup();
+    }
+</script> {% endblock %}

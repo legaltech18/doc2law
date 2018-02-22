@@ -9,6 +9,10 @@ application = Flask(__name__)
 def index():
     return render_template("index.html")
 
+@application.route("/handoff")
+def handoff():
+    return render_template("handoff.html")
+
 @application.route("/query", methods=['POST'])
 def query():
     query = request.form['query']
