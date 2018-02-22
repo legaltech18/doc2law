@@ -9,48 +9,56 @@ Text weak color: #9B9B9B
 Marker color: #F8E71C
 */
 
-
 /*
-  Font Faces
+    Font Faces
 */
 
 @font-face {
-  font-family: "Source Sans Pro";
-  font-style: normal;
-  font-weight: 700;
-  src: url("../fonts/SourceSansPro-Bold.ttf");
+    font-family: "Source Sans Pro";
+    font-style: normal;
+    font-weight: 700;
+    src: url("../fonts/SourceSansPro-Bold.ttf");
 }
 
 @font-face {
-  font-family: "Source Sans Pro";
-  font-style: italic;
-  font-weight: 700;
-  src: url("../fonts/SourceSansPro-BoldItalic.ttf");
+    font-family: "Source Sans Pro";
+    font-style: italic;
+    font-weight: 700;
+    src: url("../fonts/SourceSansPro-BoldItalic.ttf");
 }
 
 @font-face {
-  font-family: "Source Sans Pro";
-  font-style: normal;
-  font-weight: 400;
-  src: url("../fonts/SourceSansPro-Regular.ttf");
+    font-family: "Source Sans Pro";
+    font-style: normal;
+    font-weight: 400;
+    src: url("../fonts/SourceSansPro-Regular.ttf");
 }
 
 @font-face {
-  font-family: "Source Serif Pro";
-  font-style: normal;
-  font-weight: 700;
-  src: url("../fonts/SourceSerifPro-Bold.ttf");
+    font-family: "Source Serif Pro";
+    font-style: normal;
+    font-weight: 700;
+    src: url("../fonts/SourceSerifPro-Bold.ttf");
 }
 
 @font-face {
-  font-family: "Source Serif Pro";
-  font-style: normal;
-  font-weight: 400;
-  src: url("../fonts/SourceSerifPro-Regular.ttf");
+    font-family: "Source Serif Pro";
+    font-style: normal;
+    font-weight: 400;
+    src: url("../fonts/SourceSerifPro-Regular.ttf");
+}
+
+@keyframes hvr-pulse {
+    25% {
+    transform: scale(1.1);
+    }
+    75% {
+    transform: scale(0.9);
+    }
 }
 
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 /*! HTML5 Boilerplate v6.0.1 | MIT License | https://html5boilerplate.com/ */
@@ -62,15 +70,15 @@ Marker color: #F8E71C
  */
 
 /* ==========================================================================
-   Base styles: opinionated defaults
-   ========================================================================== */
+     Base styles: opinionated defaults
+     ========================================================================== */
 
 html {
-  color: #4A4A4A;
-  font-size: 1em;
-  line-height: 1.4;
-  background-color: #f7f9fb;
-  font-family: "Source Sans Pro", sans-serif;
+    color: #4a4a4a;
+    font-size: 1em;
+    line-height: 1.4;
+    background-color: #f7f9fb;
+    font-family: "Source Sans Pro", sans-serif;
 }
 
 /*
@@ -84,13 +92,13 @@ html {
  */
 
 ::-moz-selection {
-  background: #b3d4fc;
-  text-shadow: none;
+    background: #b3d4fc;
+    text-shadow: none;
 }
 
 ::selection {
-  background: #b3d4fc;
-  text-shadow: none;
+    background: #b3d4fc;
+    text-shadow: none;
 }
 
 /*
@@ -98,12 +106,12 @@ html {
  */
 
 hr {
-  display: block;
-  height: 1px;
-  border: 0;
-  border-top: 1px solid #ccc;
-  margin: 1em 0;
-  padding: 0;
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
 }
 
 /*
@@ -118,7 +126,7 @@ iframe,
 img,
 svg,
 video {
-  vertical-align: middle;
+    vertical-align: middle;
 }
 
 /*
@@ -126,9 +134,9 @@ video {
  */
 
 fieldset {
-  border: 0;
-  margin: 0;
-  padding: 0;
+    border: 0;
+    margin: 0;
+    padding: 0;
 }
 
 /*
@@ -136,138 +144,170 @@ fieldset {
  */
 
 textarea {
-  resize: vertical;
+    resize: vertical;
 }
 
 mark {
-  background-color: #F8E71C;
+    background-color: #f8e71c;
+}
+
+h3 {
+    color: #9B9B9B;
+    font-weight: 300;
 }
 
 /* ==========================================================================
-   Author's custom styles
-   ========================================================================== */
+     Author's custom styles
+     ========================================================================== */
 .container {
-  padding: 2rem;
+    padding: 2rem;
 }
 
 .container--full {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }
 
 /* Form */
 .textarea {
-  width: 100%;
-  border: 1px solid #EFEFEF;
-  padding: .25rem;
+    width: 100%;
+    border: 1px solid #E7E3E3;
+    padding: 0.25rem;
 }
 
 /* Logo */
 .logo {
-  width: 100%;
-  max-width: 10rem;
-  margin: 0 auto;
+    width: 100%;
+    max-width: 10rem;
+    margin: 0 auto;
 }
 
 .logo--small {
-  width: 2rem;
-  height: auto;
+    width: 2rem;
+    height: auto;
+}
+
+.logo--small {
+    transform: perspective(1px) translateZ(0);
+}
+
+.logo--small.loading,
+.logo--small.loading,
+.logo--small.loading {
+    animation-name: hvr-pulse;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
 }
 
 /* Card */
 .card {
-  background-color: #FFFFFF;
-  box-shadow: 0 2px 3px 0 rgba(0,0,0,0.05);
-  border-radius: .25rem;
+    background-color: #ffffff;
+    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.05);
+    border-radius: 0.25rem;
+    border: 1px solid #E7E3E3;
 }
 .card--body,
 .card--footer {
-  padding: 1rem;
+    padding: 1rem;
 }
 
 .card--footer {
-  background-color: #fbfbfb;
+    background-color: #4a90e21a;
+    border-top: 1px solid #4a90e233;
 }
 
 /* Button */
 .btn {
-  appearance: none;
-  padding: .5rem 1rem;
-  background: none;
-  border-radius: .25rem;
-  border: none;
-  display: inline-block;
-  text-decoration: none;
-  cursor: pointer;
+    appearance: none;
+    padding: 0.5rem 1rem;
+    background: none;
+    border-radius: 0.25rem;
+    border: none;
+    display: inline-block;
+    text-decoration: none;
+    cursor: pointer;
 }
 .btn--primary {
-  background-color: #4A90E2;
-  color: #FFF;
+    background-color: #4a90e2;
+    color: #fff;
 }
 .btn--success {
-  background-color: #42C078;
-  color: #FFF;
+    background-color: #42c078;
+    color: #fff;
 }
 .btn--danger {
-  background-color: #DB2022;
-  color: #FFF;
+    background-color: #db2022;
+    color: #fff;
+}
+.btn--default {
+    border: 1px solid #d4d4d4;
+    background-color: #fff;
+}
+.btn--small {
+    padding: 0.25rem 1rem;
+    font-size: 0.85rem;
 }
 
 .u-padding--h {
-  padding-left: 1rem;
-  padding-right: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
 
 .u-padding--v {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
 }
 
 .logo {
-  max-width: 8rem;
-  margin: 0 auto;
+    max-width: 8rem;
+    margin: 0 auto;
 }
 
 .logo-container {
-  margin: 6rem 0 3rem 0;
+    margin: 6rem 0 3rem 0;
 }
 
 .title {
-  color: #4A90E2;
-  font-size: 4rem;
-  margin: 0;
+    color: #4a90e2;
+    font-size: 4rem;
+    margin: 0;
 }
 
 .text-weak {
-  color: #9B9B9B;
+    color: #9b9b9b;
 }
 
 .text-lead {
-  font-size: 1.3rem;
+    font-size: 1.3rem;
 }
 
 a {
-  color: #4A90E2;
+    color: #4a90e2;
 }
 
 .results-item {
-  margin-top: 2rem;
+    margin-top: 2rem;
 }
 
+#map {
+    min-height: 50vh;
+    border: 1px solid #E7E3E3;
+}
 
 /* ==========================================================================
-   Helper classes
-   ========================================================================== */
+     Helper classes
+     ========================================================================== */
 
 /*
  * Hide visually and from screen readers
  */
 
 .hidden {
-  display: none !important;
+    display: none !important;
 }
 
 /*
@@ -280,17 +320,17 @@ a {
  */
 
 .visuallyhidden {
-  border: 0;
-  clip: rect(0 0 0 0);
-  -webkit-clip-path: inset(50%);
-  clip-path: inset(50%);
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
-  width: 1px;
-  white-space: nowrap; /* 1 */
+    border: 0;
+    clip: rect(0 0 0 0);
+    -webkit-clip-path: inset(50%);
+    clip-path: inset(50%);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+    white-space: nowrap; /* 1 */
 }
 
 /*
@@ -301,15 +341,15 @@ a {
 
 .visuallyhidden.focusable:active,
 .visuallyhidden.focusable:focus {
-  clip: auto;
-  -webkit-clip-path: none;
-  clip-path: none;
-  height: auto;
-  margin: 0;
-  overflow: visible;
-  position: static;
-  width: auto;
-  white-space: inherit;
+    clip: auto;
+    -webkit-clip-path: none;
+    clip-path: none;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    position: static;
+    width: auto;
+    white-space: inherit;
 }
 
 /*
@@ -317,7 +357,7 @@ a {
  */
 
 .invisible {
-  visibility: hidden;
+    visibility: hidden;
 }
 
 /*
@@ -334,20 +374,20 @@ a {
 
 .clearfix:before,
 .clearfix:after {
-  content: " "; /* 1 */
-  display: table; /* 2 */
+    content: " "; /* 1 */
+    display: table; /* 2 */
 }
 
 .clearfix:after {
-  clear: both;
+    clear: both;
 }
 
 /* ==========================================================================
-   EXAMPLE Media Queries for Responsive Design.
-   These examples override the primary ('mobile first') styles.
-   Modify as content requires.
-   ========================================================================== */
+     EXAMPLE Media Queries for Responsive Design.
+     These examples override the primary ('mobile first') styles.
+     Modify as content requires.
+     ========================================================================== */
 
 @media only screen and (min-width: 35em) {
-  /* Style adjustments for viewports that meet the condition */
+    /* Style adjustments for viewports that meet the condition */
 }
