@@ -1,0 +1,353 @@
+/*
+Primary color: #4A90E2
+Danger color: #DB2022
+Success color: #42C078
+Background color: #f7f9fb
+Background light color: #fbfbfb
+Text color: #4A4A4A
+Text weak color: #9B9B9B
+Marker color: #F8E71C
+*/
+
+
+/*
+  Font Faces
+*/
+
+@font-face {
+  font-family: "Source Sans Pro";
+  font-style: normal;
+  font-weight: 700;
+  src: url("../fonts/SourceSansPro-Bold.ttf");
+}
+
+@font-face {
+  font-family: "Source Sans Pro";
+  font-style: italic;
+  font-weight: 700;
+  src: url("../fonts/SourceSansPro-BoldItalic.ttf");
+}
+
+@font-face {
+  font-family: "Source Sans Pro";
+  font-style: normal;
+  font-weight: 400;
+  src: url("../fonts/SourceSansPro-Regular.ttf");
+}
+
+@font-face {
+  font-family: "Source Serif Pro";
+  font-style: normal;
+  font-weight: 700;
+  src: url("../fonts/SourceSerifPro-Bold.ttf");
+}
+
+@font-face {
+  font-family: "Source Serif Pro";
+  font-style: normal;
+  font-weight: 400;
+  src: url("../fonts/SourceSerifPro-Regular.ttf");
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/*! HTML5 Boilerplate v6.0.1 | MIT License | https://html5boilerplate.com/ */
+
+/*
+ * What follows is the result of much research on cross-browser styling.
+ * Credit left inline and big thanks to Nicolas Gallagher, Jonathan Neal,
+ * Kroc Camen, and the H5BP dev community and team.
+ */
+
+/* ==========================================================================
+   Base styles: opinionated defaults
+   ========================================================================== */
+
+html {
+  color: #4A4A4A;
+  font-size: 1em;
+  line-height: 1.4;
+  background-color: #f7f9fb;
+  font-family: "Source Sans Pro", sans-serif;
+}
+
+/*
+ * Remove text-shadow in selection highlight:
+ * https://twitter.com/miketaylr/status/12228805301
+ *
+ * Vendor-prefixed and regular ::selection selectors cannot be combined:
+ * https://stackoverflow.com/a/16982510/7133471
+ *
+ * Customize the background color to match your design.
+ */
+
+::-moz-selection {
+  background: #b3d4fc;
+  text-shadow: none;
+}
+
+::selection {
+  background: #b3d4fc;
+  text-shadow: none;
+}
+
+/*
+ * A better looking default horizontal rule
+ */
+
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 1em 0;
+  padding: 0;
+}
+
+/*
+ * Remove the gap between audio, canvas, iframes,
+ * images, videos and the bottom of their containers:
+ * https://github.com/h5bp/html5-boilerplate/issues/440
+ */
+
+audio,
+canvas,
+iframe,
+img,
+svg,
+video {
+  vertical-align: middle;
+}
+
+/*
+ * Remove default fieldset styles.
+ */
+
+fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+/*
+ * Allow only vertical resizing of textareas.
+ */
+
+textarea {
+  resize: vertical;
+}
+
+mark {
+  background-color: #F8E71C;
+}
+
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+.container {
+  padding: 2rem;
+}
+
+.container--full {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+/* Form */
+.textarea {
+  width: 100%;
+  border: 1px solid #EFEFEF;
+  padding: .25rem;
+}
+
+/* Logo */
+.logo {
+  width: 100%;
+  max-width: 10rem;
+  margin: 0 auto;
+}
+
+.logo--small {
+  width: 2rem;
+  height: auto;
+}
+
+/* Card */
+.card {
+  background-color: #FFFFFF;
+  box-shadow: 0 2px 3px 0 rgba(0,0,0,0.05);
+  border-radius: .25rem;
+}
+.card--body,
+.card--footer {
+  padding: 1rem;
+}
+
+.card--footer {
+  background-color: #fbfbfb;
+}
+
+/* Button */
+.btn {
+  appearance: none;
+  padding: .5rem 1rem;
+  background: none;
+  border-radius: .25rem;
+  border: none;
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+}
+.btn--primary {
+  background-color: #4A90E2;
+  color: #FFF;
+}
+.btn--success {
+  background-color: #42C078;
+  color: #FFF;
+}
+.btn--danger {
+  background-color: #DB2022;
+  color: #FFF;
+}
+
+.u-padding--h {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.u-padding--v {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.logo {
+  max-width: 8rem;
+  margin: 0 auto;
+}
+
+.logo-container {
+  margin: 6rem 0 3rem 0;
+}
+
+.title {
+  color: #4A90E2;
+  font-size: 4rem;
+  margin: 0;
+}
+
+.text-weak {
+  color: #9B9B9B;
+}
+
+.text-lead {
+  font-size: 1.3rem;
+}
+
+a {
+  color: #4A90E2;
+}
+
+.results-item {
+  margin-top: 2rem;
+}
+
+
+/* ==========================================================================
+   Helper classes
+   ========================================================================== */
+
+/*
+ * Hide visually and from screen readers
+ */
+
+.hidden {
+  display: none !important;
+}
+
+/*
+ * Hide only visually, but have it available for screen readers:
+ * https://snook.ca/archives/html_and_css/hiding-content-for-accessibility
+ *
+ * 1. For long content, line feeds are not interpreted as spaces and small width
+ *    causes content to wrap 1 word per line:
+ *    https://medium.com/@jessebeach/beware-smushed-off-screen-accessible-text-5952a4c2cbfe
+ */
+
+.visuallyhidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  -webkit-clip-path: inset(50%);
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  white-space: nowrap; /* 1 */
+}
+
+/*
+ * Extends the .visuallyhidden class to allow the element
+ * to be focusable when navigated to via the keyboard:
+ * https://www.drupal.org/node/897638
+ */
+
+.visuallyhidden.focusable:active,
+.visuallyhidden.focusable:focus {
+  clip: auto;
+  -webkit-clip-path: none;
+  clip-path: none;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  position: static;
+  width: auto;
+  white-space: inherit;
+}
+
+/*
+ * Hide visually and from screen readers, but maintain layout
+ */
+
+.invisible {
+  visibility: hidden;
+}
+
+/*
+ * Clearfix: contain floats
+ *
+ * For modern browsers
+ * 1. The space content is one way to avoid an Opera bug when the
+ *    `contenteditable` attribute is included anywhere else in the document.
+ *    Otherwise it causes space to appear at the top and bottom of elements
+ *    that receive the `clearfix` class.
+ * 2. The use of `table` rather than `block` is only necessary if using
+ *    `:before` to contain the top-margins of child elements.
+ */
+
+.clearfix:before,
+.clearfix:after {
+  content: " "; /* 1 */
+  display: table; /* 2 */
+}
+
+.clearfix:after {
+  clear: both;
+}
+
+/* ==========================================================================
+   EXAMPLE Media Queries for Responsive Design.
+   These examples override the primary ('mobile first') styles.
+   Modify as content requires.
+   ========================================================================== */
+
+@media only screen and (min-width: 35em) {
+  /* Style adjustments for viewports that meet the condition */
+}

@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request
 from search import search
 
-    
+
 application = Flask(__name__)
 
 @application.route("/")
@@ -16,6 +16,6 @@ def query():
     response = search(query)
     #return results
     return render_template("search.html", response = response, query=query)
-    
+
 if __name__ == '__main__':
-    application.run()   
+    application.run(debug=True)

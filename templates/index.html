@@ -1,21 +1,33 @@
 {% extends "template.html" %}
 {% block body %}
-<div id="info">
-    <h2>§ Text search for German law</h2>
-    <p>
-            This is a search used to find relavent German laws (Gesetze) to an input query.
-    </p>
-<h3>Features</h3>
-        <ul>
-            <li>
-                Search in <strike><b>German</b></strike> or <b>English</b>. (This server has only the English version)
-            </li>
-            <li>
-                Results take you to <b>specific paragraphs</b> of the law.
-            </li>
-            <li>
-                Full <b>logic operation</b> support (e.g. "stock NOT market", etc).
-            </li>
-        </ul>
-</div>
+<div class="container">
+    <div class="row center-xs middle-xs">
+      <div class="col-xs-6">
+        <div class="logo-container">
+          <img class="logo" src="/static/img/logo.svg" />
+          <h1 class="title">doc2law</h1>
+        </div>
+        <form action="/query" method="post">
+          <!-- Card Component -->
+          <div class="card">
+            <div class="card--body start-xs">
+              <p>We are here to help. Describe your case in simple language.</p>
+              <textarea class="textarea" name="query" placeholder="I need help with&hellip;" required rows="10"></textarea>
+            </div>
+            <footer class="card--footer">
+              <div class="row between-xs">
+                <div class="col-xs-6 start-xs">
+                  <input type="file" name="upload" class="start-xs" />
+                </div>
+                <div class="col-xs-6 end-xs">
+                  <button type="submit" class="btn btn--primary">Help me</button>
+                </div>
+              </div>
+            </footer>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
 {% endblock %}

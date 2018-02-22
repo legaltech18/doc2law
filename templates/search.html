@@ -1,18 +1,78 @@
 {% extends "template.html" %}
 {% block body %}
-{% if  response['results']  %}
-<h3>{{ response['query'] }}</h3>
-{% for sample, law_title, para_n, score  in response['results'] %}
-<div class="result-box">
-            <b>{{ law_title }}{% if para_n %}§{{ para_n }}{% endif %}</b>
-            <p>{{ sample }}</p>
-            {{ score }}
-        </li>
-        </ul>
+{% if response['results'] %}
+<!-- Header -->
+<div class="container">
+    <div class="row">
+        <div class="col-xs-6">
+            <a href="/">
+                <img class="logo logo--small" src="/static/img/logo.svg" />
+            </a>
+        </div>
+        <div class="col-xs-6 end-xs">
+            <a href="" class="btn btn--primary">Talk to a lawyer</a>
+        </div>
+    </div>
 </div>
-{% endfor %}
-{% else %}
+
+<main class="container">
+    <div class="row">
+        <div class="col-xs-12 col-md-8">
+            <h1>Result</h1>
+            <p class="text-weak">
+                We think these laws apply to your case. Here comes a more helpful explanation why this is important.
+            </p>
+            <p>
+                Your case: {{ response['query'] }}
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <h2>Relevant Paragraphs</h2>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-6">
+            <h3>Legal Text</h3>
+        </div>
+        <div class="col-xs-12 col-sm-6">
+            <h3>Interpretation Help</h3>
+        </div>
+    </div>
+
+    {% for sample, law_title, para_n, score in response['results'] %}
+    <div class="row results-item">
+        <div class="col-xs-12 col-md-6">
+            <div class="card">
+                <div class="card--body">
+                    <!-- Use <mark></mark> for highlights -->
+                    <!-- Score: {{ score }} -->
+                    {{ sample }}
+                </div>
+                <div class="card--footer">
+                    <div class="row">
+                        <div class="col-xs-6">{{ law_title }} {% if para_n %}§{{ para_n }}{% endif %}</div>
+                        <div class="col-xs-6 end-xs">
+                            <a href="#">View full text</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-md-6">
+            <p>
+                Elit aenean sociis tristique natoque magna ultricies in hac feugiat, fames malesuada sem risus integer tellus eget mus orci,
+                senectus suspendisse ornare tempor velit nibh scelerisque ac. Interdum porta primis nisl curae, proin dolor
+                turpis egestas leo, nulla eros mus.
+            </p>
+        </div>
+    </div>
+    {% endfor %} {% else %}
     <p>No results found.</p>
-{% endif %}
-</div>
+    {% endif %}
+</main>
 {% endblock %}
