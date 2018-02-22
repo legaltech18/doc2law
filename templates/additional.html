@@ -1,0 +1,56 @@
+{% extends "template.html" %}
+{% block body %}
+<!-- Header -->
+<div class="container margin--top-2">
+  <div class="row">
+    <div class="col-xs-12 center-xs">
+      <img class="logo logo--small" src="./static/img/logo.svg" />
+    </div>
+  </div>
+</div>
+
+<!-- Content -->
+<div class="container margin--top-2">
+  <div class="row center-xs middle-xs">
+    <div class="col-xs-6 start-xs">
+      <p class="text-weak u-padding--h">
+        We found many a lot of information relevant to your case. Help us to narrow the information down for you by providing more
+        information.
+      </p>
+      <p class="text-lead u-padding--h">
+        Here comes a question which prompts the user to provide some more keyword.
+      </p>
+      <form method="post" action="/">
+        <!-- Example for text input -->
+        <div class="card">
+          <div class="card--body start-xs">
+            <textarea class="textarea" name="text" placeholder="I need help with&hellip;" rows="10"></textarea>
+          </div>
+          <footer class="card--footer">
+            <div class="row between-xs">
+              <div class="col-xs-12 end-xs">
+                <button type="submit" class="btn btn--primary">Continue</button>
+              </div>
+            </div>
+          </footer>
+        </div>
+        <br />
+        <!-- Example for yes/no question -->
+        <div class="card">
+          <div class="card--body">
+            <div class="row between-xs">
+              <div class="col-xs-6 start-xs">
+                <button type="submit" class="btn btn--large btn--danger">No</button>
+              </div>
+              <div class="col-xs-6 end-xs">
+                <button type="submit" class="btn btn--large btn--success">Yes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+{% endblock %}
