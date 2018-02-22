@@ -1,6 +1,6 @@
 jQuery(function($) {
     if ($("#map").length) {
-        var map = L.map("map").setView(
+        var map = window.map = L.map("map").setView(
             [52.51371369804256, 13.42460632324219],
             10
         );
@@ -25,10 +25,14 @@ jQuery(function($) {
             map.setView(currentPosition);
 
             L.marker(currentPosition).addTo(map);
+
+            if (window.renderMarkers) {
+                window.renderMarkers(map);
+            }
         });
     }
 
     $('button[type="submit"]').click(function() {
-        $('.logo').addClass('loading');
+        $(".logo").addClass("loading");
     });
 });

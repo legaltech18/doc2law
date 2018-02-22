@@ -210,6 +210,9 @@ h3 {
     border-radius: 0.25rem;
     border: 1px solid #E7E3E3;
 }
+.card + .card {
+    margin-top: 1rem;
+}
 .card--body,
 .card--footer {
     padding: 1rem;
@@ -296,6 +299,7 @@ a {
 #map {
     min-height: 50vh;
     border: 1px solid #E7E3E3;
+    position: sticky;s
 }
 
 /* ==========================================================================
