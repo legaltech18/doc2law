@@ -12,11 +12,10 @@ def index():
 @application.route("/query", methods=['POST'])
 def query():
     query = request.form['query']
-    # ~ langauge = request.form['langauge']
     langauge = 'en'
     response = search(query)
     #return results
-    return render_template("search.html", response = response, query=query, language = langauge)
+    return render_template("search.html", response = response, query=query)
     
 if __name__ == '__main__':
     application.run()   

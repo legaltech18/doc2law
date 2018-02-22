@@ -36,6 +36,8 @@ def search(query_input):
                 results_list.append([content, law_title, para_n, score])
         response['results'] = results_list
     return response
+    
+    
 if __name__ == '__main__':
     from pprint import pprint
     output  = search(input())
