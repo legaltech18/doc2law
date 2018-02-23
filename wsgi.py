@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from search import text_search
+from search import run_search
 
 
 application = Flask(__name__)
@@ -16,8 +16,7 @@ def handoff():
 @application.route("/query", methods=['POST'])
 def query():
     query = request.form['query']
-    langauge = 'en'
-    response = text_search(query)
+    response = run_search(query)
 
     return render_template("search.html", response={
         'response': response,
