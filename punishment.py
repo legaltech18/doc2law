@@ -24,6 +24,6 @@ def extract_punishments(law_text) -> list:
     """Extract punishments with a regex (very simple)"""
 
     matches = re.finditer(r'imprisonment(.*?)year((s)?)(( or a fine)?)', law_text)
-    punishments = [m.group() for m in matches]
+    return [m.group() for m in matches]
 
-    return punishments
+    # return punishments

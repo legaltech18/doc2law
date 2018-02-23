@@ -6,6 +6,7 @@ from werkzeug.utils import secure_filename
 from werkzeug.wsgi import SharedDataMiddleware
 
 from ocr.image_to_text import ImageToText
+from punishment import extract_punishments
 
 from search import run_search
 
@@ -19,6 +20,13 @@ UPLOAD_FOLDER = 'static/uploads'
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 application.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
+
+@application.template_filter()
+def get_punishments(full_text): # date = datetime object.
+    print(len(full_text))
+    x = extract_punishments(full_text)
+    print(x)
+    return x
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -43,8 +51,11 @@ def handle_upload(request):
 
         if q == 'Taking a false oath before a court.':
             q = 'perjury'
-        elif q == '':
-            pass
+        elif q == 'Causing negligent death of a person.':
+            q = 'murder'
+        elif q == 'Asserting and disseminating a fact about a person which has defamed or negatively affected public opinion about the person.':
+            q = 'defamation'
+
 
         logger.debug('Set query: %s' % q)
 

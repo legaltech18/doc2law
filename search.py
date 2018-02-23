@@ -181,6 +181,7 @@ def run_search(law_case):
     # ~ pprint(matched_laws)
     pprint(scored_results)
     final_results = []
+    result_ids = set()
     for sr in scored_results:
         law_section, para_n = sr
         # ~ print(matched_laws)
@@ -197,10 +198,16 @@ def run_search(law_case):
                 if law_section == m_section and para_n == m_para_n:
                     samples.append(m_sample)
 
-                    punishments = extract_punishments(full_text)
-            logger.debug('P: %s' % punishments)
-            result = (law_section, para_n, samples[0], full_text, punishments) # ! samples of 0!! (should work for every sample)
-            final_results.append(result)
+                    # punishments = extract_punishments(full_text)
+            # logger.debug('P: %s' % punishments)
+                result = (law_section, para_n, m_sample, full_text, []) # ! samples of 0!! (should work for every sample)
+                result_id = law_section + para_n
+
+                print(result_id)
+
+                if result_ids not in result_ids:
+                    final_results.append(result)
+                    result_ids.add(result_id)
     return final_results
     # ~ return combined_result
 
