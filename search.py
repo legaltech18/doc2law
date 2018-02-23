@@ -201,13 +201,18 @@ def run_search(law_case):
                     # punishments = extract_punishments(full_text)
             # logger.debug('P: %s' % punishments)
                 result = (law_section, para_n, m_sample, full_text, []) # ! samples of 0!! (should work for every sample)
-                result_id = law_section + para_n
+                result_id = '%s%s' % (law_section, para_n)
 
                 print(result_id)
 
-                if result_ids not in result_ids:
+                if result_id not in result_ids:
+                    print('new')
+                    print(result_ids)
+
                     final_results.append(result)
                     result_ids.add(result_id)
+            result_ids = set(result_ids)
+
     return final_results
     # ~ return combined_result
 
