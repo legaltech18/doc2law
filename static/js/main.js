@@ -42,9 +42,12 @@ var item = document.getElementById(divID);
 if (item) {
     if(item.className=='hidden'){
         item.className = 'unhidden' ;
-        clickedButton.value = 'hide'
+        clickedButton.value = 'hide';
+        $('#sample_' + divID).hide();
     }else{
         item.className = 'hidden';
-        clickedButton.value = 'unhide'
+        clickedButton.value = 'unhide';
+
+        $('#sample_' + divID).show();
     }
 }}

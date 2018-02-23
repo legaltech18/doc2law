@@ -2,7 +2,8 @@
 Use Whoosh index files to find law section
 """
 #!/usr/bin/env python
-
+import logging
+import sys
 from whoosh.qparser import QueryParser
 from whoosh.lang.porter import stem
 from whoosh.lang.morph_en import variations
@@ -16,13 +17,31 @@ INDEX_DIR = 'db/index'
 DATABASE_URL = "db/corpus.db"
 TABLE_NAME = "law_text"
 
+# Prepare logger
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+
+ch = logging.StreamHandler(sys.stdout)
+ch.setLevel(logging.DEBUG)
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+ch.setFormatter(formatter)
+logger.addHandler(ch)
+
 
 def get_full_law_para(law_title, para_num, matched):
     conn = sqlite3.connect(DATABASE_URL)
     c = conn.cursor()
     query = 'SELECT law_text from %s where law_name=\'%s\' and section=\'%s\'' % (TABLE_NAME, law_title, para_num)
     all_text = ""
-    for row in c.execute(query):
+    res = c.execute(query)
+
+    if not res:
+        logger.warning('No results from DB: %s' % query)
+
+    for row in res:
+
+        logger.info('From DB: %s' % row)
+
         text = row[0]
         if matched != text:
             all_text += "<br>"+text
@@ -46,16 +65,41 @@ def text_search(query_input):
         query = QueryParser("content", ix.schema).parse(query_input)
         response['query'] = str(query)
         results = searcher.search(query)
+
+        logger.info('Index query: %s' % query)
+        logger.info('Index response: %s' % results)
+
         results_list = []
         if results:
+            if len(results) < 1:
+                logger.warning('Index response is empty')
+            else:
+                logger.debug('Index response length: %i' % len(results))
+
             for r in results:
-                matched, law_title, para_n = r.values()
+                # print(r.get())
+                # exit(1)
+                # {'para_n': '74', 'law_title': 'gvg', 'content': '4.  murder (section 211 of the Criminal Code),'}>
+
+                matched, law_title, para_n = r.get('content'), r.get('law_title'), r.get('para_n')
+
                 if para_n == "":
                     para_n = None
+                score = "1"
                 score = "{0:.2f}".format(r.score)
+
                 full_text = get_full_law_para(law_title, para_n, matched)
-                results_list.append([matched, law_title, para_n, score, full_text, extract_punishments(full_text)])
+                results_list_item = [matched, law_title, para_n, score, full_text, extract_punishments(full_text)]
+                # results_list_item = {
+                #     [matched, law_title, para_n, score, full_text, extract_punishments(full_text)]
+
+                results_list.append(results_list_item)
+
+                logger.debug('List item: %s' % results_list_item)
         response['results'] = results_list
+
+        logger.debug('Results list: %i' % len(results_list))
+
     return response
 
 
@@ -120,6 +164,9 @@ def run_search(law_case):
         expanded_sentences = query_expander(case_sentence)
         for sentence in expanded_sentences:
             matched_laws.append(text_search(sentence))
+
+    logger.debug('Matched laws: %s' % matched_laws)
+
     scored_results = result_list_combiner(matched_laws)
     # use combined_result to sort results...
     from pprint import pprint
@@ -159,6 +206,9 @@ def result_list_combiner(matched_laws):
     golden_words = ['fine', 'imprisonment', 'whosoever', 'liable']
     from pprint import pprint
     golden_list = []
+
+    logger.debug('result_list_combiner: starting')
+
     for match in matched_laws:
             for law_match in match['results']:
                 law_section = law_match[1]
@@ -168,12 +218,19 @@ def result_list_combiner(matched_laws):
                 law_section_freq = dict_increment(law_section_freq, tag)
                 if law_section == "stgb":
                     import re
-                    para_num_int = int(re.split("[a-z]", para_num)[0])
+                    # para_num_int = int(re.sub(r"(^[0-9])", '', para_num))
+                    para_num_int = int(re.sub(r"([^0-9])", '', para_num))
+
+                    logger.debug(para_num_int)
+
                     if para_num_int < 80:
                         # law_section_score = dict_increment(law_section_score, tag, 1)
                         pass
                     else:
                         law_section_score = dict_increment(law_section_score, tag, 10)
+                else:
+                    logger.debug('Is not stgb: %s' % law_match)
+
                 for gw in golden_words:
                     if gw in full_text:
                         golden_list.append(tag)
@@ -183,6 +240,9 @@ def result_list_combiner(matched_laws):
         if k in set(golden_list):
             law_section_score[k] += 2
     law_section_score = sorted(law_section_score.items(), key=operator.itemgetter(1),  reverse=True)
+
+    logger.debug('Final law_section_score: %s' % law_section_score)
+
     return [s[0] for s in law_section_score]
             # ~ break
 

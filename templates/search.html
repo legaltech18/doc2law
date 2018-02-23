@@ -63,9 +63,9 @@
                 <div class="card--body">
                     <!-- Use <mark></mark> for highlights -->
                     <!-- Score: {{ score }} -->
-                    <div class="law-text-sample">{{ sample }}</div>
+                    <div id="sample_{{ law_title+para_n }}" class="law-text-sample">{{ sample }}</div>
                     <div id="{{ law_title+para_n }}"class="law-text-full hidden">{{ full_text| safe }}</div>
-                    
+
                 </div>
                 <div class="card--footer">
                     <div class="row">
@@ -79,26 +79,27 @@
                     </div>
                 </div>
             </div>
-
-            <div class="col-xs-12 col-md-6">
-                <p>
-                    Elit aenean sociis tristique natoque magna ultricies in hac feugiat, fames malesuada sem risus integer tellus eget mus orci,
-                    senectus suspendisse ornare tempor velit nibh scelerisque ac. Interdum porta primis nisl curae, proin dolor
-                    turpis egestas leo, nulla eros mus.
-                    {% if punishments %}
-                    <br/>
-                    <b>Possible punishments are:</b>
-                    <ul>
-                        {% for p in punishments%}
-                            <li>
-                                {{p}}
-                            </li>
-                        {% endfor %}
-                        </ul>
-                    {%  endif %}
-                </p>
-            </div>
         </div>
+
+        <div class="col-xs-12 col-md-6">
+            <p>
+                Elit aenean sociis tristique natoque magna ultricies in hac feugiat, fames malesuada sem risus integer tellus eget mus orci,
+                senectus suspendisse ornare tempor velit nibh scelerisque ac. Interdum porta primis nisl curae, proin dolor
+                turpis egestas leo, nulla eros mus.
+                {% if punishments %}
+                <br/>
+                <b>Possible punishments are:</b>
+                <ul>
+                    {% for p in punishments%}
+                        <li>
+                            {{p}}
+                        </li>
+                    {% endfor %}
+                    </ul>
+                {%  endif %}
+            </p>
+        </div>
+
         {% endfor %}
 
 
