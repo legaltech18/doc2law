@@ -198,8 +198,9 @@ def run_search(law_case):
                     samples.append(m_sample)
 
                     punishments = extract_punishments(full_text)
+            
             logger.debug('P: %s' % punishments)
-            result = (law_section, para_n, samples[0], full_text, punishments) # ! samples of 0!! (should work for every sample)
+            result = (law_section, para_n, samples, full_text, punishments) # ! samples of 0!! (should work for every sample)
             final_results.append(result)
     return final_results
     # ~ return combined_result
