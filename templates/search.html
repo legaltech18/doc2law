@@ -1,6 +1,6 @@
 {% extends "template.html" %}
 {% block body %}
-{% if response['results'] %}
+
 <!-- Header -->
 <div class="container">
     <div class="row">
@@ -10,7 +10,7 @@
             </a>
         </div>
         <div class="col-xs-6 end-xs">
-            <a href="/handoff" class="btn btn--primary">Talk to a lawyer</a>
+
         </div>
     </div>
 </div>
@@ -22,62 +22,83 @@
             <p class="text-weak">
                 We think these laws apply to your case. Here comes a more helpful explanation why this is important.
             </p>
+
+
             <p>
                 Your case: {{ response['query'] }}
             </p>
-        </div>
-    </div>
 
-    <div class="row">
-        <div class="col-xs-12">
-            <h2>Relevant Paragraphs</h2>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-xs-12 col-sm-6">
-            <h3>Legal Text</h3>
-        </div>
-        <div class="col-xs-12 col-sm-6">
-            <h3>Interpretation Help</h3>
-        </div>
-    </div>
-
-    {% for sample, law_title, para_n, score, full_text in response['results'] %}
-    <div class="row results-item">
-        <div class="col-xs-12 col-md-6">
-            <div class="card">
-                <div class="card--body">
-                    <!-- Use <mark></mark> for highlights -->
-                    <!-- Score: {{ score }} -->
-                    <div class="law-text-sample">{{ sample }}</div>
-                    <div id="{{ law_title+para_n }}"class="law-text-full hidden">{{ full_text| safe }}</div>
-                    
+            {% if doc %}
+                <h2>Your upload</h2>
+                <div style="text-align: center;">
+                <img src="/static/uploads/{{ doc.filename }}" class="img-rounded" style="margin: 5px; max-width: 600px">
                 </div>
-                <div class="card--footer">
-                    <div class="row">
-                        <div class="col-xs-6">{{ law_title }} {% if para_n %}§{{ para_n }}{% endif %}</div>
-                        <div class="col-xs-6 end-xs">
-                            <input type="button" onclick="unhide(this, '{{ law_title+para_n }}') " value="unhide">
-<!--
-                            <a  onclick="unhide(this, '{{ law_title+para_n }}')" href="#">View full text</a>
--->
+
+                <div class="well"><strong>Extracted text:</strong> {{ query }}</div>
+
+            {% endif %}
+
+        </div>
+    </div>
+
+    {% if response['results'] %}
+
+        <div class="row">
+            <div class="col-xs-12">
+                <h2>Relevant Paragraphs</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-6">
+                <h3>Legal Text</h3>
+            </div>
+            <div class="col-xs-12 col-sm-6">
+                <h3>Interpretation Help</h3>
+            </div>
+        </div>
+
+        {% for sample, law_title, para_n, score, full_text in response['results'] %}
+        <div class="row results-item">
+            <div class="col-xs-12 col-md-6">
+                <div class="card">
+                    <div class="card--body">
+                        <!-- Use <mark></mark> for highlights -->
+                        <!-- Score: {{ score }} -->
+                        <div class="law-text-sample">{{ sample }}</div>
+                        <div id="{{ law_title+para_n }}"class="law-text-full hidden">{{ full_text| safe }}</div>
+
+                    </div>
+                    <div class="card--footer">
+                        <div class="row">
+                            <div class="col-xs-6">{{ law_title }} {% if para_n %}§{{ para_n }}{% endif %}</div>
+                            <div class="col-xs-6 end-xs">
+                                <input type="button" onclick="unhide(this, '{{ law_title+para_n }}') " value="unhide">
+    <!--
+                                <a  onclick="unhide(this, '{{ law_title+para_n }}')" href="#">View full text</a>
+    -->
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="col-xs-12 col-md-6">
-            <p>
-                Elit aenean sociis tristique natoque magna ultricies in hac feugiat, fames malesuada sem risus integer tellus eget mus orci,
-                senectus suspendisse ornare tempor velit nibh scelerisque ac. Interdum porta primis nisl curae, proin dolor
-                turpis egestas leo, nulla eros mus.
-            </p>
+            <div class="col-xs-12 col-md-6">
+                <p>
+                    Elit aenean sociis tristique natoque magna ultricies in hac feugiat, fames malesuada sem risus integer tellus eget mus orci,
+                    senectus suspendisse ornare tempor velit nibh scelerisque ac. Interdum porta primis nisl curae, proin dolor
+                    turpis egestas leo, nulla eros mus.
+                </p>
+            </div>
         </div>
-    </div>
-    {% endfor %} {% else %}
-    <p>No results found.</p>
+        {% endfor %}
+
+
+        {% include 'lawyers.html' %}
+
+
+    {% else %}
+        <div class="alert alert-danger">Sorry, no results found.</div>
     {% endif %}
 </main>
 {% endblock %}
