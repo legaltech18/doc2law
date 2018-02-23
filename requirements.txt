@@ -1,3 +1,5 @@
 gunicorn
 Flask
 whoosh
+Pillow
+pyocr
