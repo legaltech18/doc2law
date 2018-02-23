@@ -56,14 +56,22 @@
             </div>
         </div>
 
+<<<<<<< HEAD
     {% for law_title, para_n, sample, full_text, p_ in response %}
+=======
+    {% for law_title, para_n, samples, full_text, punishments in response %}
+>>>>>>> c88ba6d9bb75ba85b4cd6c048ce32d1c1d701c4c
     <div class="row results-item">
         <div class="col-xs-12 col-md-6">
             <div class="card">
                 <div class="card--body">
                     <!-- Use <mark></mark> for highlights -->
                     <!-- Score: {{ score }} -->
-                    <div id="sample_{{ law_title+para_n }}" class="law-text-sample">{{ sample }}</div>
+                    <div id="sample_{{ law_title+para_n }}" class="law-text-sample">
+                        {% for s in samples %}
+                        {{ s }}
+                        {% endfor %}
+                        </div>
                     <div id="{{ law_title+para_n }}"class="law-text-full hidden">{{ full_text| safe }}</div>
 
                 </div>

@@ -198,8 +198,6 @@ def run_search(law_case):
                 if law_section == m_section and para_n == m_para_n:
                     samples.append(m_sample)
 
-                    # punishments = extract_punishments(full_text)
-            # logger.debug('P: %s' % punishments)
                 result = (law_section, para_n, m_sample, full_text, []) # ! samples of 0!! (should work for every sample)
                 result_id = '%s%s' % (law_section, para_n)
 
