@@ -56,7 +56,7 @@
             </div>
         </div>
 
-    {% for law_title, para_n, sample, full_text in response %}
+    {% for law_title, para_n, sample, full_text, punishments in response %}
     <div class="row results-item">
         <div class="col-xs-12 col-md-6">
             <div class="card">
@@ -85,6 +85,17 @@
                     Elit aenean sociis tristique natoque magna ultricies in hac feugiat, fames malesuada sem risus integer tellus eget mus orci,
                     senectus suspendisse ornare tempor velit nibh scelerisque ac. Interdum porta primis nisl curae, proin dolor
                     turpis egestas leo, nulla eros mus.
+                    {% if punishments %}
+                    <br/>
+                    <b>Possible punishments are:</b>
+                    <ul>
+                        {% for p in punishments%}
+                            <li>
+                                {{p}}
+                            </li>
+                        {% endfor %}
+                        </ul>
+                    {%  endif %}
                 </p>
             </div>
         </div>

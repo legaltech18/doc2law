@@ -10,7 +10,7 @@ from whoosh.analysis import StemmingAnalyzer
 import whoosh.index as index
 from whoosh.qparser import QueryParser, OrGroup
 import sqlite3
-
+from punishment import extract_punishments
 
 INDEX_DIR = 'db/index'
 DATABASE_URL = "db/corpus.db"
@@ -54,7 +54,7 @@ def text_search(query_input):
                     para_n = None
                 score = "{0:.2f}".format(r.score)
                 full_text = get_full_law_para(law_title, para_n, matched)
-                results_list.append([matched, law_title, para_n, score, full_text])
+                results_list.append([matched, law_title, para_n, score, full_text, extract_punishments(full_text)])
         response['results'] = results_list
     return response
 
@@ -136,10 +136,10 @@ def run_search(law_case):
             # ~ print("\n\n")
             samples = []
             for res in match['results']:
-                m_sample, m_section, m_para_n, _, full_text = res
+                m_sample, m_section, m_para_n, _, full_text, punishments = res
                 if law_section == m_section and para_n == m_para_n:
                     samples.append(m_sample)
-            result = (law_section, para_n, samples[0], full_text) # ! samples of 0!! (should work for every sample)
+            result = (law_section, para_n, samples[0], full_text, punishments) # ! samples of 0!! (should work for every sample)
             final_results.append(result)
     return final_results
     # ~ return combined_result
