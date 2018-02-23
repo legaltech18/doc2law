@@ -7,16 +7,17 @@
           <img class="logo" src="/static/img/logo.svg" />
           <h1 class="title">doc2law</h1>
         </div>
-        <form action="/query" method="post">
+        <form action="/query" method="post" enctype="multipart/form-data">
           <!-- Card Component -->
           <div class="card">
             <div class="card--body start-xs">
-              <textarea class="textarea" name="query" placeholder="We are here to help. Describe your case in simple language&hellip;" required rows="10"></textarea>
+{#                required #}
+              <textarea class="textarea" name="query" placeholder="We are here to help. Describe your case in simple language&hellip;" rows="10"></textarea>
             </div>
             <footer class="card--footer">
               <div class="row between-xs">
                 <div class="col-xs-6 start-xs">
-                  <input type="file" name="upload" class="start-xs" />
+                  <input type="file" name="doc" class="start-xs" />
                 </div>
                 <div class="col-xs-6 end-xs">
                   <button type="submit" class="btn btn--primary">Help me</button>

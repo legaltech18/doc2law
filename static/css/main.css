@@ -231,16 +231,16 @@ h3 {
 }
 
 /* Button */
-.btn {
-    appearance: none;
-    padding: 0.5rem 1rem;
-    background: none;
-    border-radius: 0.25rem;
-    border: none;
-    display: inline-block;
-    text-decoration: none;
-    cursor: pointer;
-}
+/*.btn {*/
+    /*appearance: none;*/
+    /*padding: 0.5rem 1rem;*/
+    /*background: none;*/
+    /*border-radius: 0.25rem;*/
+    /*border: none;*/
+    /*display: inline-block;*/
+    /*text-decoration: none;*/
+    /*cursor: pointer;*/
+/*}*/
 .btn--primary {
     background-color: #4a90e2;
     color: #fff;

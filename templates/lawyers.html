@@ -1,0 +1,32 @@
+    <div class="row">
+        <div class="col-xs-12">
+            <h2>Need more help? Contact A Lawyer  <span style="font-size: 14px;">(near by)</span></h2>
+        </div>
+
+        {% for l in lawyers %}
+
+        <div style="width: 30%; float: left; border: 2px solid #eee; padding: 5px; margin: 10px;">
+
+            <img style="width: 20%; float: left; margin: 5px;" src="/static/img/default_user.jpg" />
+
+            <h4>Dr. Max Mustermann</h4>
+            <h5>Criminal Law, Family Law</h5>
+
+            <br style="clear: both">
+
+            <div class="form-group">
+                <label>
+                    <input type="checkbox"> Attach your document</label>
+            </div>
+
+            <button class="btn btn-primary">Contact Lawyer</button>
+
+        </div>
+
+        {% endfor %}
+
+            <a href="/handoff" class="btn btn-success">Find More Lawyers</a>
+
+        <br style="clear: both">
+
+    </div>
