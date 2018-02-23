@@ -47,7 +47,6 @@ def text_search(query_input):
         response['query'] = str(query)
         results = searcher.search(query)
         results_list = []
-        print(results)
         if results:
             for r in results:
                 matched, law_title, para_n = r.values()
@@ -123,22 +122,50 @@ def run_search(law_case):
             matched_laws.append(text_search(sentence))
     return matched_laws
 
+def dict_increment(d, tag, i=1):
+    if tag in d.keys():
+        d[tag] += i
+    else:
+        d[tag] = i
+    return d
+
+
 def result_list_combiner(matched_laws):
     law_section_freq = {}
+    law_section_score= {}
+    golden_words = ['fine', 'imprisonment', 'whosoever', 'liable']
     from pprint import pprint
+    golden_list = []
     for match in matched_laws:
             for law_match in match['results']:
                 law_section = law_match[1]
-                if law_section in law_section_freq.keys():
-                    law_section_freq[law_section] += 1
-                else:
-                    law_section_freq[law_section] = 1
-    pprint(law_section_freq)
+                para_num = law_match[2]
+                full_text = law_match[4]
+                tag = (law_section, para_num)
+                law_section_freq = dict_increment(law_section_freq, tag)
+                if law_section == "stgb":
+                    import re
+                    para_num_int = int(re.split("[a-z]", para_num)[0])
+                    if para_num_int < 80:
+                        # law_section_score = dict_increment(law_section_score, tag, 1)
+                        pass
+                    else:
+                        law_section_score = dict_increment(law_section_score, tag, 10)
+                for gw in golden_words:
+                    print(gw, full_text)
+                    if gw in full_text:
+                        golden_list.append(tag)
+                        break #Score only once for any golden word occurance?
+    # ~ pprint(law_section_freq)
+    for k in law_section_score.keys():
+        if k in set(golden_list):
+            law_section_score[k] += 2
+    pprint(law_section_score)
             # ~ break
-        
-        
+
+
 if __name__ == '__main__':
     from pprint import pprint
     output  = run_search(input())
-    print(result_list_combiner(output))
+    result_list_combiner(output)
     #pprint(output)
