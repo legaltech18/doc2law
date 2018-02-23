@@ -8,6 +8,7 @@ from whoosh.lang.porter import stem
 from whoosh.lang.morph_en import variations
 from whoosh.analysis import StemmingAnalyzer
 import whoosh.index as index
+from whoosh.qparser import QueryParser, OrGroup
 import sqlite3
 
 
@@ -28,8 +29,9 @@ def get_full_law_para(law_title, para_num, matched):
         else:
             all_text += "<br> <mark>"+text+"</mark>"
     return all_text
+ 
     
-def search(query_input):
+def text_search(query_input):
     ix = index.open_dir(INDEX_DIR)
     stem_ana = StemmingAnalyzer()
     query_input_stem = stem_ana(query_input)
@@ -57,9 +59,86 @@ def search(query_input):
         response['results'] = results_list
     return response
     
-    
+
+def term_expander(term):
+    from nltk.corpus import wordnet as wn
+    from nltk.corpus import stopwords
+    stopWords = set(stopwords.words('english'))
+    if term in stopWords:
+        return [term]
+    all_terms = [term]
+    # One uses wordnet and the other uses word2vec
+    extended_terms = wn.synsets(term)
+    for term in extended_terms:
+        term_word = str(term).split("'", 1)[-1]
+        term_word = str(term_word).split(".", 1)[0]
+        term_word = term_word.replace('_', ' ')
+        all_terms.append(term_word)
+    return list(set(all_terms))
+
+
+def or_search(query_input):
+    ix = index.open_dir(INDEX_DIR)
+    response = {}
+    with ix.searcher() as searcher:
+        query = QueryParser("content", schema=ix.schema, group=OrGroup).parse(query_input)
+        response['query'] = str(query)
+        results = searcher.search(query)
+        results_list = []
+        if results:
+            for r in results:
+                content, law_title, para_n = r.values()
+                url = law_title + '.' + para_n
+                score = "{0:.2f}".format(r.score) # Careful! may lose accuracy
+                results_list.append((content, url, score))
+        response['results'] = results_list
+    return response
+
+
+
+import whoosh.analysis as analysis
+from itertools import product
+def query_expander(input_sent):
+    ana = analysis.RegexTokenizer()
+    input_terms = [t.text for t in ana(input_sent, mode="index")]
+#     pprint(term_expander(input_terms[0]))
+    expanded_terms = [term_expander(term) for term in input_terms]
+#     print(list(expanded_terms))
+    text_product = product(*expanded_terms)
+#     print(list(text_product))
+    expanded_sentences = [" ".join(sent) for sent in text_product]
+    return expanded_sentences
+#     print() 
+
+
+def run_search(law_case):
+    import nltk
+    case_sentences = nltk.tokenize.sent_tokenize(law_case)
+    # case_sentences = tokenizer.tokenize(law_case)
+    expanded_case = []
+    matched_laws = []
+    for case_sentence in case_sentences:
+        expanded_sentences = query_expander(case_sentence)
+        for sentence in expanded_sentences:
+            matched_laws.append(text_search(sentence))
+    return matched_laws
+
+def result_list_combiner(matched_laws):
+    law_section_freq = {}
+    from pprint import pprint
+    for match in matched_laws:
+            for law_match in match['results']:
+                law_section = law_match[1]
+                if law_section in law_section_freq.keys():
+                    law_section_freq[law_section] += 1
+                else:
+                    law_section_freq[law_section] = 1
+    pprint(law_section_freq)
+            # ~ break
+        
+        
 if __name__ == '__main__':
     from pprint import pprint
-    output  = search(input())
-    # ~ pprint(output['results'])
-    pprint(output)
+    output  = run_search(input())
+    print(result_list_combiner(output))
+    #pprint(output)
