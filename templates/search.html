@@ -1,6 +1,6 @@
 {% extends "template.html" %}
 {% block body %}
-{% if response['results'] %}
+{% if response %}
 <!-- Header -->
 <div class="container">
     <div class="row">
@@ -22,9 +22,6 @@
             <p class="text-weak">
                 We think these laws apply to your case. Here comes a more helpful explanation why this is important.
             </p>
-            <p>
-                Your case: {{ response['query'] }}
-            </p>
         </div>
     </div>
 
@@ -43,7 +40,7 @@
         </div>
     </div>
 
-    {% for sample, law_title, para_n, score, full_text in response['results'] %}
+    {% for law_title, para_n, sample, full_text in response %}
     <div class="row results-item">
         <div class="col-xs-12 col-md-6">
             <div class="card">

@@ -17,11 +17,8 @@ def handoff():
 def query():
     query = request.form['query']
     response = run_search(query)
-
-    return render_template("search.html", response={
-        'response': response,
-        'doc': None
-    }, query=query)
+    print(response[0][0])
+    return render_template("search.html", response=response, query=query)
 
 if __name__ == '__main__':
     application.run(debug=True)
