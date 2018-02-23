@@ -20,17 +20,17 @@ TABLE_NAME = "law_text"
 def get_full_law_para(law_title, para_num, matched):
     conn = sqlite3.connect(DATABASE_URL)
     c = conn.cursor()
-    query = f"SELECT law_text from {TABLE_NAME} where law_name='{law_title}' and section='{para_num}'"
+    query = 'SELECT law_text from %s where law_name=\'%s\' and section=\'%s\'' % (TABLE_NAME, law_title, para_num)
     all_text = ""
     for row in c.execute(query):
         text = row[0]
-        if matched != text: 
+        if matched != text:
             all_text += "<br>"+text
         else:
             all_text += "<br> <mark>"+text+"</mark>"
     return all_text
- 
-    
+
+
 def text_search(query_input):
     ix = index.open_dir(INDEX_DIR)
     stem_ana = StemmingAnalyzer()
@@ -57,7 +57,7 @@ def text_search(query_input):
                 results_list.append([matched, law_title, para_n, score, full_text])
         response['results'] = results_list
     return response
-    
+
 
 def term_expander(term):
     from nltk.corpus import wordnet as wn
@@ -107,7 +107,7 @@ def query_expander(input_sent):
 #     print(list(text_product))
     expanded_sentences = [" ".join(sent) for sent in text_product]
     return expanded_sentences
-#     print() 
+#     print()
 
 
 def run_search(law_case):

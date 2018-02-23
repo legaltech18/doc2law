@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from search import search
+from search import text_search
 
 
 application = Flask(__name__)
@@ -17,9 +17,12 @@ def handoff():
 def query():
     query = request.form['query']
     langauge = 'en'
-    response = search(query)
-    #return results
-    return render_template("search.html", response = response, query=query)
+    response = text_search(query)
+
+    return render_template("search.html", response={
+        'response': response,
+        'doc': None
+    }, query=query)
 
 if __name__ == '__main__':
     application.run(debug=True)
