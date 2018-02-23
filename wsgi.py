@@ -1,11 +1,13 @@
 import logging
 import os
 from flask import Flask, render_template, request
+
 from werkzeug.utils import secure_filename
 from werkzeug.wsgi import SharedDataMiddleware
 
 from ocr.image_to_text import ImageToText
-from search import text_search
+
+from search import run_search
 
 
 logger = logging.getLogger(__name__)
@@ -67,7 +69,7 @@ def query():
         q = 'Please enter a text or upload a document.'
 
     langauge = 'en'
-    response = text_search(q)
+    response = run_search(q)
 
     return render_template("search.html", response=response, query=q, doc=doc, lawyers=range(3))
 
