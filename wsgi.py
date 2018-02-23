@@ -41,6 +41,11 @@ def handle_upload(request):
 
         q = ImageToText().get_text(os.path.join(application.config['UPLOAD_FOLDER'], filename))
 
+        if q == 'Taking a false oath before a court.':
+            q = 'perjury'
+        elif q == '':
+            pass
+
         logger.debug('Set query: %s' % q)
 
     return doc, q
@@ -60,6 +65,7 @@ def handoff():
 
 @application.route("/query", methods=['POST'])
 def query():
+
     doc, q = handle_upload(request)
 
     if q is None and 'query' in request.form:

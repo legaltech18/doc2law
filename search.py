@@ -89,9 +89,11 @@ def text_search(query_input):
                 score = "{0:.2f}".format(r.score)
 
                 full_text = get_full_law_para(law_title, para_n, matched)
-                results_list_item = [matched, law_title, para_n, score, full_text, extract_punishments(full_text)]
-                # results_list_item = {
-                #     [matched, law_title, para_n, score, full_text, extract_punishments(full_text)]
+                punishment = 'not yet...'
+
+                # logger.debug('Punishment: %s' % punishment)
+
+                results_list_item = [matched, law_title, para_n, score, full_text, punishment]
 
                 results_list.append(results_list_item)
 
@@ -163,9 +165,15 @@ def run_search(law_case):
     for case_sentence in case_sentences:
         expanded_sentences = query_expander(case_sentence)
         for sentence in expanded_sentences:
-            matched_laws.append(text_search(sentence))
+            tmp = text_search(sentence)
 
-    logger.debug('Matched laws: %s' % matched_laws)
+
+            # for x in  tmp['results']:
+            #     logger.error('YYY %s' % x[5])
+
+            matched_laws.append(tmp)
+
+    logger.debug('Matched laws: %s' % matched_laws[0])
 
     scored_results = result_list_combiner(matched_laws)
     # use combined_result to sort results...
@@ -182,10 +190,15 @@ def run_search(law_case):
             # ~ print(match)
             # ~ print("\n\n")
             samples = []
+            punishments = []
+
             for res in match['results']:
                 m_sample, m_section, m_para_n, _, full_text, punishments = res
                 if law_section == m_section and para_n == m_para_n:
                     samples.append(m_sample)
+
+                    punishments = extract_punishments(full_text)
+            logger.debug('P: %s' % punishments)
             result = (law_section, para_n, samples[0], full_text, punishments) # ! samples of 0!! (should work for every sample)
             final_results.append(result)
     return final_results
@@ -229,7 +242,8 @@ def result_list_combiner(matched_laws):
                     else:
                         law_section_score = dict_increment(law_section_score, tag, 10)
                 else:
-                    logger.debug('Is not stgb: %s' % law_match)
+                    # logger.debug('Is not stgb: %s' % law_match)
+                    pass
 
                 for gw in golden_words:
                     if gw in full_text:
