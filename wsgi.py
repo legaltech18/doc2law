@@ -41,6 +41,7 @@ def handle_upload(request):
         doc = request.files['doc']
         # print('yyy')
 
+    original_text = ""
     if doc and allowed_file(doc.filename):
         filename = secure_filename(doc.filename)
         doc.save(os.path.join(application.config['UPLOAD_FOLDER'], filename))
@@ -48,18 +49,24 @@ def handle_upload(request):
         logger.debug('Saved upload')
 
         q = ImageToText().get_text(os.path.join(application.config['UPLOAD_FOLDER'], filename))
-
+        original_text = q
         if q == 'Taking a false oath before a court.':
+<<<<<<< HEAD
+            q = ' falsely takes an oath before a court'
+        elif q == 'Causing negligent death of a person.':
+            q = 'Whosoever through negligence causes the death'
+=======
             q = 'perjury'
         elif q == 'Causing negligent death of a person.':
             q = 'murder'
         elif q == 'Asserting and disseminating a fact about a person which has defamed or negatively affected public opinion about the person.':
             q = 'defamation'
 
+>>>>>>> 57f832d55045660a3724f8f252a81b2270a6659a
 
         logger.debug('Set query: %s' % q)
 
-    return doc, q
+    return doc, q, original_text
 
 
 # Views
@@ -77,7 +84,7 @@ def handoff():
 @application.route("/query", methods=['POST'])
 def query():
 
-    doc, q = handle_upload(request)
+    doc, q, original_text = handle_upload(request)
 
     if q is None and 'query' in request.form:
         q = request.form['query']
@@ -88,7 +95,7 @@ def query():
     langauge = 'en'
     response = run_search(q)
 
-    return render_template("search.html", response=response, query=q, doc=doc, lawyers=range(3))
+    return render_template("search.html", response=response, query=q, doc=doc, original_text=original_text, lawyers=range(3))
 
 if __name__ == '__main__':
     application.run(debug=True)

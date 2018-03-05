@@ -197,6 +197,11 @@ def run_search(law_case):
                 m_sample, m_section, m_para_n, _, full_text, punishments = res
                 if law_section == m_section and para_n == m_para_n:
                     samples.append(m_sample)
+<<<<<<< HEAD
+                    punishments = extract_punishments(full_text)
+                    result = (law_section, para_n, samples, full_text, punishments) # ! samples of 0!! (should work for every sample)
+                    final_results.append(result)
+=======
 
                 result = (law_section, para_n, m_sample, full_text, []) # ! samples of 0!! (should work for every sample)
                 result_id = '%s%s' % (law_section, para_n)
@@ -211,6 +216,7 @@ def run_search(law_case):
                     result_ids.add(result_id)
             result_ids = set(result_ids)
 
+>>>>>>> 57f832d55045660a3724f8f252a81b2270a6659a
     return final_results
     # ~ return combined_result
 

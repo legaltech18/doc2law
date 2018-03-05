@@ -32,7 +32,7 @@
                 <img src="/static/uploads/{{ doc.filename }}" class="img-rounded" style="margin: 5px; max-width: 600px">
                 </div>
 
-                <div class="well"><strong>Extracted text:</strong> {{ query }}</div>
+                {% if original_text %} <div class="well"><strong>Extracted text:</strong> {{ original_text }}</div> {% endif %}
 
             {% endif %}
 
