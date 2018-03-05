@@ -51,21 +51,13 @@ def handle_upload(request):
         q = ImageToText().get_text(os.path.join(application.config['UPLOAD_FOLDER'], filename))
         original_text = q
         if q == 'Taking a false oath before a court.':
-<<<<<<< HEAD
-            q = ' falsely takes an oath before a court'
-        elif q == 'Causing negligent death of a person.':
-            q = 'Whosoever through negligence causes the death'
-=======
             q = 'perjury'
         elif q == 'Causing negligent death of a person.':
             q = 'murder'
         elif q == 'Asserting and disseminating a fact about a person which has defamed or negatively affected public opinion about the person.':
             q = 'defamation'
-
->>>>>>> 57f832d55045660a3724f8f252a81b2270a6659a
-
         logger.debug('Set query: %s' % q)
-
+        
     return doc, q, original_text
 
 
